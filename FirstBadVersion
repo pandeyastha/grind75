@@ -1,0 +1,42 @@
+// The API isBadVersion is defined for you.
+// bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        if (isBadVersion(1)) return 1;
+        int lower=1, upper=n;
+        while(lower<=upper){
+            int mid=lower +(upper-lower)/2;
+            if (isBadVersion(mid) && !isBadVersion(mid-1)) return mid;
+            else if(!isBadVersion(mid))lower=mid+1;
+            else upper=mid-1;
+        }
+        return lower;
+    }
+};
+
+/*
+Constraints
+doable 2^31 in 31 calls
+if n==0 then what?  no need
+
+cross- is there definitely a bad version ?
+Brute -
+start from 1 to n , check each , since going in sorted fashion
+we get FBV exactly.
+TC= O(N * time of each call to API)
+SC=O(1)
+
+Better -
+since sorted  , if we find bad , chances are bad towards its left too 
+if not , means bad not appear yet , check other section
+inference - search space division by checking the random 
+soln- divide search space by 2 by checking mid , as sorted so best approach
+
+Tc= O(log n * time of API call)
+SC= O(1)  // since no extra space needed , api call gives result
+
+-- infer this is best possible
+
+*/
