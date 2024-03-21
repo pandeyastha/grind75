@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        if( magazine.length()< ransomNote.length()) return false;
+        vector<int>mp(26);
+        for(auto x: magazine ) mp[x-'a']++;
+        for(auto x: ransomNote) mp[x-'a']--;
+        for(auto x:mp) if(x<0) return false;
+        return true;
+    }
+};
+
+/*
+
+discussion -
+len of string 
+len of magazine 
+only lowercase or any unicode ? 
+deduction -
+if len. magazine < len of ransomNote => not possible 
+
+brute -
+take each lette of ransome note , check with magazine string 
+tc=O( R * M) sp=O(1)
+
+better-
+hash every letter with freq of magazine , 
+now start with ransom note & deduct freq => if negative || not found => false
+
+tc =len(mag+ ransom)
+sc= len(mag ?> ransomw)
+
+best -
+sc= 26 sincce lower case 
+tc= len Mag +len rqansomNote
+*/
